@@ -179,5 +179,6 @@ int main()
 
         item_index--;
     }
-    cout << expression;
+    cout << expression << "\n";
+    system("pause");
 }
