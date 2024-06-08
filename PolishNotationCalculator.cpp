@@ -61,7 +61,9 @@ string int_to_char(int num)
 
     while (num > 0)
     {
-        if (num % 10 == 1)
+        if (num % 10 == 0)
+            reverse_result += '0';
+        else if (num % 10 == 1)
             reverse_result += '1';
         else if (num % 10 == 2)
             reverse_result += '2';
