@@ -3,30 +3,14 @@
 
 using namespace std;
 
+string alpha = "0123456789";
+
 int char_to_int(char c)
 {
-    switch (c)
+    for (int num = 0; num < 10; num++)
     {
-    case '0':
-        return 0;
-    case '1':
-        return 1;
-    case '2':
-        return 2;
-    case '3':
-        return 3;
-    case '4':
-        return 4;
-    case '5':
-        return 5;
-    case '6':
-        return 6;
-    case '7':
-        return 7;
-    case '8':
-        return 8;
-    case '9':
-        return 9;
+        if (c == alpha[num])
+            return num;
     }
 }
 
@@ -61,26 +45,11 @@ string int_to_char(int num)
 
     while (num > 0)
     {
-        if (num % 10 == 0)
-            reverse_result += '0';
-        else if (num % 10 == 1)
-            reverse_result += '1';
-        else if (num % 10 == 2)
-            reverse_result += '2';
-        else if (num % 10 == 3)
-            reverse_result += '3';
-        else if (num % 10 == 4)
-            reverse_result += '4';
-        else if (num % 10 == 5)
-            reverse_result += '5';
-        else if (num % 10 == 6)
-            reverse_result += '6';
-        else if (num % 10 == 7)
-            reverse_result += '7';
-        else if (num % 10 == 8)
-            reverse_result += '8';
-        else if (num % 10 == 9)
-            reverse_result += '9';
+        for (int index = 0; index < 10; index++)
+        {
+            if (num % 10 == index)
+                reverse_result += alpha[index];
+        }
         num /= 10;
     }
 
