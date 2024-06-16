@@ -65,6 +65,7 @@ string int_to_char(int num)
 int main()
 {
     string expression;
+    int end_inter_expression = 0;
     cout << "Put your expression:\n";
     getline(cin, expression);
     expression += ' ';
@@ -112,6 +113,7 @@ int main()
                     }
                     else if (space_counter == 2)
                     {
+                        end_inter_expression = inter_index - item_index;
                         int exp = 0;
                         for (int num_index = inter_index - 1; expression[num_index] != ' '; num_index--)
                         {
@@ -132,7 +134,7 @@ int main()
             if (operations_amt == 0)
                 expression = inter_result;
             else
-                expression.replace(item_index, 5, inter_result);
+                expression.replace(item_index, end_inter_expression, inter_result);
 
             space_counter = 0;
             a = 0;
