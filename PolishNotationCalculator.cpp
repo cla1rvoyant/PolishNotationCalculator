@@ -8,26 +8,31 @@ string alpha = "0123456789";
 
 int char_to_int(char c)
 {
-    for (int num = 0; num < 10; num++)
+    int num = 0;
+
+    for (int index = 0; index < 10; index++)
     {
-        if (c == alpha[num])
-            return num;
+        if (c == alpha[index])
+            num = index;
     }
+
+    return num;
 }
 
 int operation(int a, int b, char c)
 {
-    switch (c)
-    {
-    case '+':
-        return a + b;
-    case '-':
-        return a - b;
-    case '*':
-        return a * b;
-    case '/':
-        return a / b;
-    }
+    int result = 0;
+
+    if (c == '+')
+        result = a + b;
+    else if (c == '-')
+        result = a - b;
+    else if (c == '*')
+        result = a * b;
+    else if (c == '/')
+        result = a / b;
+
+    return result;
 }
 
 string int_to_char(int num)
