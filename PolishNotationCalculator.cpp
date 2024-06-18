@@ -13,6 +13,8 @@ int char_to_int(char c)
         if (c == alpha[num])
             return num;
     }
+    
+    return 0;
 }
 
 int operation(int a, int b, char c)
@@ -28,6 +30,8 @@ int operation(int a, int b, char c)
     case '/':
         return a / b;
     }
+    
+    return 0;
 }
 
 string int_to_char(int num)
