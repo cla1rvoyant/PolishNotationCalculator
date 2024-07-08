@@ -6,7 +6,7 @@ using namespace std;
 
 string alpha = "0123456789";
 
-int char_to_int(char c)
+int string_to_num(char c)
 {
     for (int num = 0; num < 10; num++)
     {
@@ -34,7 +34,7 @@ float operation(float a, float b, char c)
     return 0;
 }
 
-string int_to_char(float num)
+string num_to_string(float num)
 {
     string result = to_string(num);
     if (num - floor(num) == 0)
@@ -119,7 +119,7 @@ int main()
                                     a *= -1;
                                     break;
                                 }
-                                a += char_to_int(expression[num_index]) * pow(10, exp);
+                                a += string_to_num(expression[num_index]) * pow(10, exp);
                                 exp++;
                             }
 
@@ -129,7 +129,7 @@ int main()
                                 int float_exp = -1;
                                 for (int float_index = num_index + 1; float_index < inter_index; float_index++)
                                 {
-                                    a += char_to_int(expression[float_index]) * pow(10, float_exp);
+                                    a += string_to_num(expression[float_index]) * pow(10, float_exp);
                                     float_exp--;
                                 }
                             }
@@ -161,7 +161,7 @@ int main()
                                     b *= -1;
                                     break;
                                 }
-                                b += char_to_int(expression[num_index]) * pow(10, exp);
+                                b += string_to_num(expression[num_index]) * pow(10, exp);
                                 exp++;
                             }
 
@@ -171,7 +171,7 @@ int main()
                                 int float_exp = -1;
                                 for (int i = num_index + 1; i < inter_index; i++)
                                 {
-                                    b += char_to_int(expression[i]) * pow(10, float_exp);
+                                    b += string_to_num(expression[i]) * pow(10, float_exp);
                                     float_exp--;
                                 }
                             }
@@ -179,7 +179,7 @@ int main()
                     }
                 }
             }
-            inter_result = int_to_char(operation(a, b, expression[item_index]));
+            inter_result = num_to_string(operation(a, b, expression[item_index]));
             operations_amt--;
 
             if (operations_amt == 0)
