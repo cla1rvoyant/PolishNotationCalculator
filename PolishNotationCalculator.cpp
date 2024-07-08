@@ -17,7 +17,7 @@ int char_to_int(char c)
     return 0;
 }
 
-int operation(int a, int b, char c)
+float operation(float a, float b, char c)
 {
     switch (c)
     {
@@ -34,35 +34,27 @@ int operation(int a, int b, char c)
     return 0;
 }
 
-string int_to_char(int num)
+string int_to_char(float num)
 {
-    string reverse_result, result;
-    bool minus_flag = 0;
-
-    if (num < 0)
+    string result = to_string(num);
+    if (num - floor(num) == 0)
     {
-        minus_flag = 1;
-        num *= -1;
-    }
-
-    if (num == 0)
-        reverse_result += '0';
-
-    while (num > 0)
-    {
-        for (int index = 0; index < 10; index++)
+        if (result[size(result) - 1] == '0')
         {
-            if (num % 10 == index)
-                reverse_result += alpha[index];
+            int index = size(result) - 1;
+            for (; result[index] == '0'; index--);
+            result.erase(index, size(result) - index);
         }
-        num /= 10;
     }
-
-    if (minus_flag == 1)
-        reverse_result += '-';
-
-    for (int i = size(reverse_result) - 1; i >= 0; i--)
-        result += reverse_result[i];
+    else
+    {
+        if (result[size(result) - 1] == '0')
+        {
+            int index = size(result) - 1;
+            for (; result[index] == '0'; index--);
+            result.erase(index + 1, size(result) - index);
+        }
+    }
 
     return result;
 }
@@ -75,7 +67,8 @@ int main()
     getline(cin, expression);
     expression += ' ';
 
-    int space_counter = 0, a = 0, b = 0, item_index = size(expression), operations_amt = 0;
+    int space_counter = 0, item_index = size(expression), operations_amt = 0;
+    float a = 0, b = 0;
 
     for (int index = 0; index < size(expression); index++)
     {
@@ -105,30 +98,83 @@ int main()
                     if (space_counter == 1)
                     {
                         int exp = 0;
+                        bool float_flag = 0;
+                        bool is_float = 0;
+
                         for (int num_index = inter_index - 1; expression[num_index] != ' '; num_index--)
                         {
-                            if (expression[num_index] == '-')
+                            for (int check_index = num_index; expression[check_index] != ' '; check_index--)
                             {
-                                a *= -1;
-                                break;
+                                if (expression[check_index] == '.')
+                                {
+                                    is_float = 1;
+                                    break;
+                                }
                             }
-                            a += char_to_int(expression[num_index]) * pow(10, exp);
-                            exp++;
+
+                            if (is_float == 0 || float_flag == 1)
+                            {
+                                if (expression[num_index] == '-')
+                                {
+                                    a *= -1;
+                                    break;
+                                }
+                                a += char_to_int(expression[num_index]) * pow(10, exp);
+                                exp++;
+                            }
+
+                            if (expression[num_index] == '.')
+                            {
+                                float_flag = 1;
+                                int float_exp = -1;
+                                for (int float_index = num_index + 1; float_index < inter_index; float_index++)
+                                {
+                                    a += char_to_int(expression[float_index]) * pow(10, float_exp);
+                                    float_exp--;
+                                }
+                            }
                         }
                     }
                     else if (space_counter == 2)
                     {
                         end_inter_expression = inter_index - item_index;
+
                         int exp = 0;
+                        bool float_flag = 0;
+                        bool is_float = 0;
+
                         for (int num_index = inter_index - 1; expression[num_index] != ' '; num_index--)
                         {
-                            if (expression[num_index] == '-')
+                            for (int check_index = num_index; expression[check_index] != ' '; check_index--)
                             {
-                                b *= -1;
-                                break;
+                                if (expression[check_index] == '.')
+                                {
+                                    is_float = 1;
+                                    break;
+                                }
                             }
-                            b += char_to_int(expression[num_index]) * pow(10, exp);
-                            exp++;
+
+                            if (is_float == 0 || float_flag == 1)
+                            {
+                                if (expression[num_index] == '-')
+                                {
+                                    b *= -1;
+                                    break;
+                                }
+                                b += char_to_int(expression[num_index]) * pow(10, exp);
+                                exp++;
+                            }
+
+                            if (expression[num_index] == '.')
+                            {
+                                float_flag = 1;
+                                int float_exp = -1;
+                                for (int i = num_index + 1; i < inter_index; i++)
+                                {
+                                    b += char_to_int(expression[i]) * pow(10, float_exp);
+                                    float_exp--;
+                                }
+                            }
                         }
                     }
                 }
