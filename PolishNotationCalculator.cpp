@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <string>
 #include <math.h>
+#include <sstream>
 
 using namespace std;
 
@@ -36,26 +37,12 @@ float operation(float a, float b, char c)
 
 string num_to_string(float num)
 {
-    string result = to_string(num);
-    if (num - floor(num) == 0)
-    {
-        if (result[size(result) - 1] == '0')
-        {
-            int index = size(result) - 1;
-            for (; result[index] == '0'; index--);
-            result.erase(index, size(result) - index);
-        }
-    }
-    else
-    {
-        if (result[size(result) - 1] == '0')
-        {
-            int index = size(result) - 1;
-            for (; result[index] == '0'; index--);
-            result.erase(index + 1, size(result) - index);
-        }
-    }
+    string result;
+    stringstream ss;
 
+    ss << num;
+    ss >> result;
+    
     return result;
 }
 
@@ -201,5 +188,6 @@ int main()
 
         item_index--;
     }
+    
     cout << expression << "\n";
 }
