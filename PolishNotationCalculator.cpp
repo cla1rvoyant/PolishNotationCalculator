@@ -27,11 +27,9 @@ float operation(float a, float b, char c)
     case '-':
         return a - b;
     case '*':
-        if (a * b == 0)
-            return 0;
+        return a * b;
     case '/':
-        if (a / b == 0)
-            return 0;
+        return a / b;
     }
     
     return 0;
