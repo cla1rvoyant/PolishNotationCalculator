@@ -27,9 +27,11 @@ float operation(float a, float b, char c)
     case '-':
         return a - b;
     case '*':
-        return a * b;
+        if (a * b == 0)
+            return 0;
     case '/':
-        return a / b;
+        if (a / b == 0)
+            return 0;
     }
     
     return 0;
@@ -180,9 +182,7 @@ int main()
         }
 
         else if ((expression[item_index] == '+' ||
-            expression[item_index] == '-' ||
-            expression[item_index] == '*' ||
-            expression[item_index] == '/') &&
+            expression[item_index] == '-') &&
             expression[item_index + 1] != ' ')
             item_index--;
 
