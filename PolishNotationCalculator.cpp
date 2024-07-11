@@ -39,6 +39,9 @@ float operation(float a, float b, char c)
 
 string num_to_string(float num)
 {
+    if (num == -0)
+        num = 0;
+
     string result;
     stringstream ss;
 
