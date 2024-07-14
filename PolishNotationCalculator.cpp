@@ -79,6 +79,8 @@ int main()
             int num_begin = num_end;
 
             for (; expression[num_begin] != ' ' && num_begin > 0; num_begin--);
+            if (num_begin > 0)
+                num_begin++;
             int begin_inter_exp_expression = num_begin;
             for (; num_begin < num_end; num_begin++)
                 num += expression[num_begin];
