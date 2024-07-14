@@ -60,6 +60,15 @@ string num_to_string(float num)
     return result;
 }
 
+float factorial(int f_num)
+{
+    int result = 1;
+    for (int num = 1; num <= f_num; num++)
+        result *= num;
+
+    return result;
+}
+
 int main()
 {
     string expression;
@@ -67,34 +76,6 @@ int main()
     cout << "Put your expression:\n";
     getline(cin, expression);
     expression += ' ';
-
-    for (int exp_index = 0; exp_index < size(expression); exp_index++)
-    {
-        if (expression[exp_index] == '^')
-        {
-            int end_inter_exp_expression = exp_index + 1;
-            string num, exponent;
-
-            int num_end = exp_index;
-            int num_begin = num_end;
-
-            for (; expression[num_begin] != ' ' && num_begin > 0; num_begin--);
-            if (num_begin > 0)
-                num_begin++;
-            int begin_inter_exp_expression = num_begin;
-            for (; num_begin < num_end; num_begin++)
-                num += expression[num_begin];
-
-            for (; expression[end_inter_exp_expression] != ' '; end_inter_exp_expression++)
-                exponent += expression[end_inter_exp_expression];
-            
-            float inter_exp_result = pow(string_to_num(num), string_to_num(exponent));
-
-            int length_inter_exp_expression = end_inter_exp_expression - begin_inter_exp_expression;
-
-            expression.replace(begin_inter_exp_expression, length_inter_exp_expression, num_to_string(inter_exp_result));
-        }
-    }
 
     int space_counter = 0, item_index = size(expression), operations_amt = 0;
     float a = 0, b = 0;
@@ -107,6 +88,52 @@ int main()
             expression[index] == '/') &&
             expression[index + 1] == ' ')
             operations_amt++;
+        
+        if (expression[index] == '^')
+        {
+            int end_exp_expression = index + 1;
+            string num, exponent;
+
+            int num_end = index;
+            int num_begin = num_end;
+
+            for (; expression[num_begin] != ' ' && num_begin > 0; num_begin--);
+            if (num_begin > 0)
+                num_begin++;
+            int begin_exp_expression = num_begin;
+
+            for (; num_begin < num_end; num_begin++)
+                num += expression[num_begin];
+
+            for (; expression[end_exp_expression] != ' '; end_exp_expression++)
+                exponent += expression[end_exp_expression];
+            
+            float exp_result = pow(string_to_num(num), string_to_num(exponent));
+            int length_exp_expression = end_exp_expression - begin_exp_expression;
+            expression.replace(begin_exp_expression, length_exp_expression, num_to_string(exp_result));
+        }
+
+        if (expression[index] == '!')
+        {
+            int end_factorial_expression = index + 1;
+
+            string num;
+
+            int num_end = index;
+            int num_begin = num_end;
+
+            for (; expression[num_begin] != ' ' && num_begin > 0; num_begin--);
+            if (num_begin > 0)
+                num_begin++;
+            int begin_factorial_expression = num_begin;
+
+            for (; num_begin < num_end; num_begin++)
+                num += expression[num_begin];
+
+            float factorial_result = factorial(string_to_num(num));
+            int length_factorial_expression = end_factorial_expression - begin_factorial_expression;
+            expression.replace(begin_factorial_expression, length_factorial_expression, num_to_string(factorial_result));
+        }
     }
 
     string inter_result;
