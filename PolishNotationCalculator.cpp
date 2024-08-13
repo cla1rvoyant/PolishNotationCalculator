@@ -25,7 +25,7 @@ int char_to_num(char c)
         if (c == alpha[num])
             return num;
     }
-    
+
     return 0;
 }
 
@@ -42,7 +42,7 @@ float operation(float a, float b, char c)
     case '/':
         return a / b;
     }
-    
+
     return 0;
 }
 
@@ -56,7 +56,7 @@ string num_to_string(float num)
 
     ss << num;
     ss >> result;
-    
+
     return result;
 }
 
@@ -72,13 +72,11 @@ float factorial(int f_num)
 int main()
 {
     string expression;
-    int end_inter_expression = 0;
     cout << "Put your expression:\n";
     getline(cin, expression);
     expression += ' ';
 
-    int space_counter = 0, item_index = size(expression), operations_amt = 0;
-    float a = 0, b = 0;
+    int operations_amt = 0;
 
     for (int index = 0; index < size(expression); index++)
     {
@@ -88,7 +86,7 @@ int main()
             expression[index] == '/') &&
             expression[index + 1] == ' ')
             operations_amt++;
-        
+
         if (expression[index] == '^')
         {
             int end_exp_expression = index + 1;
@@ -107,7 +105,7 @@ int main()
 
             for (; expression[end_exp_expression] != ' '; end_exp_expression++)
                 exponent += expression[end_exp_expression];
-            
+
             float exp_result = pow(string_to_num(num), string_to_num(exponent));
             int length_exp_expression = end_exp_expression - begin_exp_expression;
             expression.replace(begin_exp_expression, length_exp_expression, num_to_string(exp_result));
@@ -136,9 +134,11 @@ int main()
         }
     }
 
+    int item_index = size(expression) - 2, space_counter = 0, end_inter_expression = 0;
+    float a = 0, b = 0;
     string inter_result;
 
-    while (item_index >= 0)
+    while (item_index >= 0 && operations_amt > 0)
     {
         if ((expression[item_index] == '+' ||
             expression[item_index] == '-' ||
@@ -225,9 +225,9 @@ int main()
                             {
                                 float_flag = 1;
                                 int float_exp = -1;
-                                for (int i = num_index + 1; i < inter_index; i++)
+                                for (int float_index = num_index + 1; float_index < inter_index; float_index++)
                                 {
-                                    b += char_to_num(expression[i]) * pow(10, float_exp);
+                                    b += char_to_num(expression[float_index]) * pow(10, float_exp);
                                     float_exp--;
                                 }
                             }
@@ -237,7 +237,6 @@ int main()
             }
             inter_result = num_to_string(operation(a, b, expression[item_index]));
             operations_amt--;
-
             if (operations_amt == 0)
                 expression = inter_result;
             else
@@ -255,6 +254,6 @@ int main()
 
         item_index--;
     }
-    
+
     cout << expression << "\n";
 }
