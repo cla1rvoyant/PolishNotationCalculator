@@ -120,8 +120,8 @@ int main()
             int num_end = index;
             int num_begin = num_end;
 
-            for (; expression[num_begin] != ' ' && num_begin > 0; num_begin--);
-            if (num_begin > 0)
+            for (; expression[num_begin] != ' ' && expression[num_begin] != '-' && num_begin > 0; num_begin--);
+            if (num_begin > 0 || expression[num_begin] == '-')
                 num_begin++;
             int begin_factorial_expression = num_begin;
 
@@ -133,7 +133,6 @@ int main()
             expression.replace(begin_factorial_expression, length_factorial_expression, num_to_string(factorial_result));
         }
     }
-
     int item_index = size(expression) - 2, space_counter = 0, end_inter_expression = 0;
     float a = 0, b = 0;
     string inter_result;
